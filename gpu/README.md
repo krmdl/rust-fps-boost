@@ -14,9 +14,9 @@ The installer applies the profile first, then the overlay. If both set the same 
 
 | Convar | Value | Why |
 |---|---|---|
-| `graphics.reflexmode` | 1 | NVIDIA Reflex keeps the render queue near empty: **lower input latency**, especially when GPU-bound. `2` (On + Boost) also keeps GPU clocks high. That helps when CPU-bound but costs power/heat, so on laptops stay on `1`. Requires GTX 900 series or newer. |
+| `graphics.reflexmode` | 1 | NVIDIA Reflex keeps the render queue near empty: **lower input latency**, especially when GPU-bound. NVIDIA claims "up to 38%" lower system latency in Rust (vendor best case). Supported on GTX 900 series or newer [[N1]](../docs/sources.md#n1). `2` (On + Boost) also keeps GPU clocks high. That costs power/heat, so on laptops stay on `1`. |
 
-**DLSS** (`graphics.dlss`, RTX cards only) is not set by the overlay. The convar's value mapping isn't verified yet, and the right mode depends on your resolution. Choose it in **Options → Graphics**. Rough guide: at 1080p use *Quality* at most, at 1440p+ *Balanced* is usually fine. DLSS lowers the internal resolution, so it helps when **GPU-bound** and does almost nothing when CPU-bound, which is common in Rust.
+**DLSS** (`graphics.dlss`, RTX cards only; added to Rust in July 2021 [[N2]](../docs/sources.md#n2)) is not set by the overlay. The convar's value mapping isn't verified yet, and the right mode depends on your resolution. Choose it in **Options → Graphics**. Rough guide: at 1080p use *Quality* at most, at 1440p+ *Balanced* is usually fine. DLSS lowers the internal resolution, so it helps when **GPU-bound** and does almost nothing when CPU-bound, which is common in Rust.
 
 ### `amd.cfg`
 
@@ -33,7 +33,7 @@ Use with the `ultra-low` profile.
 
 | Convar | Value | Why |
 |---|---|---|
-| `graphics.renderscale` ⚠ | 0.75 | Renders the 3D scene at 75% resolution (about 56% of the pixels) while the UI stays sharp. On iGPUs, fill rate is usually the bottleneck, so this is the single biggest lever. Try 0.5 if still too slow. |
+| `graphics.renderscale` ⚠ | 0.75 | Renders the 3D scene at 75% resolution (about 56% of the pixels) while the UI stays sharp. On iGPUs, fill rate is usually the bottleneck, so this is the single biggest lever. Try 0.5 if still too slow. *(reasoning: no source yet)* |
 | `effects.sharpen` | True | A cheap sharpen pass to win back some clarity lost to the lower render scale. |
 | `graphics.reflexmode` / `graphics.dlss` | 0 / -1 | Not supported on Intel. |
 

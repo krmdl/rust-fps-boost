@@ -36,7 +36,8 @@ The installer only changes the convars listed in the profile. Your sensitivity, 
 
 ## Documentation
 
-- [docs/convars.md](docs/convars.md): **the rationale table**, every convar we touch and why
+- [docs/convars.md](docs/convars.md): **the rationale table**, every convar we touch, why, and its source
+- [docs/sources.md](docs/sources.md): every source we rely on (Facepunch, Unity docs, NVIDIA), and how strong each kind of evidence is
 - [docs/profiles.md](docs/profiles.md): design goals of each profile
 - [docs/methodology.md](docs/methodology.md): how we measure (and how you can too)
 - [docs/launch-options.md](docs/launch-options.md): Steam launch options, including which popular ones are myths
@@ -48,7 +49,7 @@ The installer only changes the convars listed in the profile. Your sensitivity, 
 1. **Only real convars.** Each profile key must appear in a `client.cfg` that the game itself wrote ([reference dump](reference/client.default.cfg)). Copy-pasted folklore is out.
 2. **Never touch personal preferences.** Sensitivity, FOV, audio, UI scale, crosshair, binds and FPS cap belong to you.
 3. **Visibility first.** Low profiles remove clutter (grass, post-processing) that hides players. We never ship a setting just because it gives a visual advantage, and we flag any setting that does.
-4. **Measured, not guessed.** Every profile states its benchmark status. Until there's data, an entry says *expected* impact, never *measured*.
+4. **Cited, then measured.** Every claim links to a source (Facepunch, Unity engine docs, NVIDIA) or is honestly labelled *reasoning*. Until there's benchmark data, an entry says *expected* impact, never *measured*.
 
 ## Status
 

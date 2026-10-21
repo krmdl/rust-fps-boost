@@ -5,7 +5,7 @@ Thanks for helping. The bar for changes is simple: **every value needs a reason,
 ## Changing a profile value
 
 1. Change the value in `profiles/*.cfg` (keep the key order identical across all profiles).
-2. Update the matching row in [docs/convars.md](docs/convars.md) with *why*.
+2. Update the matching row in [docs/convars.md](docs/convars.md) with *why*, and fill the **Src** column: add new sources to [docs/sources.md](docs/sources.md), or write `reasoning` if you have none.
 3. If you have measurements, add a report under [benchmarks/](benchmarks/).
 
 ## Adding a new convar
