@@ -67,6 +67,15 @@ https://www.nvidia.com/en-gb/geforce/news/rust-reflex-out-now/
 <a id="n2"></a>**[N2]** NVIDIA, June 2021 RTX/DLSS game update: DLSS added to Rust (July 2021), "up to 50%" more performance at 4K (vendor figure).
 https://www.nvidia.com/en-us/geforce/news/june-2021-rtx-dlss-game-update/
 
+## Hardware data
+
+<a id="h1"></a>**[H1]** Valve, *Steam Hardware & Software Survey*, video card table. In September 2026 the top cards were RTX 5070, RTX 5060, RTX 5060 Ti, RTX 4060 and RTX 3060, with the RX 9070 XT the top AMD card (as reported by Digital Citizen; outlets cite 5.86% or 6.15% for the RTX 5070 depending on the table used).
+https://store.steampowered.com/hwsurvey/videocard/ ·
+https://www.digitalcitizen.life/nvidia-rtx-5070-most-popular-gpu-steam-hardware-survey-september-2026/
+
+<a id="h2"></a>**[H2]** TechPowerUp GPU database: architecture, VRAM, memory bus and bandwidth for every card page in [`gpu/cards/`](../gpu/cards/).
+https://www.techpowerup.com/gpu-specs/
+
 ## General references
 
 <a id="g1"></a>**[G1]** Simplygon documentation, *HLOD*: hierarchical LODs merge distant objects to reduce draw calls, memory and geometry complexity. Describes the technique in general (Unreal context), not Rust's implementation.

@@ -16,7 +16,7 @@ param(
     [ValidateSet('ultra-low', 'low', 'balanced', 'quality')]
     [string]$Profile,
 
-    [ValidateSet('nvidia', 'amd', 'intel-igpu')]
+    # Vendor overlay (gpu\<name>.cfg) or card overlay (gpu\cards\<name>.cfg)
     [string]$Gpu,
 
     [ValidateRange(256, 8192)]
@@ -61,7 +61,18 @@ function Read-Convars([string]$path) {
 # --- Collect the settings to apply (later sources win) ---
 $settings = [ordered]@{}
 $sources = @(Join-Path $repoRoot "profiles\$Profile.cfg")
-if ($Gpu) { $sources += Join-Path $repoRoot "gpu\$Gpu.cfg" }
+if ($Gpu) {
+    $overlay = @("gpu\$Gpu.cfg", "gpu\cards\$Gpu.cfg") |
+        ForEach-Object { Join-Path $repoRoot $_ } |
+        Where-Object { Test-Path $_ } |
+        Select-Object -First 1
+    if (-not $overlay) {
+        $available = Get-ChildItem (Join-Path $repoRoot 'gpu'), (Join-Path $repoRoot 'gpu\cards') -Filter *.cfg |
+            ForEach-Object { $_.BaseName }
+        throw "Unknown -Gpu '$Gpu'. Available: $($available -join ', ')"
+    }
+    $sources += $overlay
+}
 foreach ($src in $sources) {
     $convars = Read-Convars $src
     foreach ($key in $convars.Keys) { $settings[$key] = $convars[$key] }

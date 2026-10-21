@@ -30,7 +30,7 @@ Options:
 | Parameter | Example | Meaning |
 |---|---|---|
 | `-Profile` | `ultra-low`, `low`, `balanced`, `quality` | Base profile (required) |
-| `-Gpu` | `nvidia`, `amd`, `intel-igpu` | Optional GPU overlay, applied after the profile |
+| `-Gpu` | `gtx-1650`, `rtx-3060`, `nvidia`, `amd`, `intel-igpu` | Optional card overlay ([list](../gpu/cards/README.md#all-cards)) or vendor overlay, applied after the profile |
 | `-GcBuffer` | `2048` | Optional manual `gc.buffer`. See [convars.md](convars.md#gcbuffer-ram) |
 | `-RustPath` | `D:\SteamLibrary\steamapps\common\Rust` | Skip auto-detection |
 | `-DryRun` | | Show what would change, write nothing |

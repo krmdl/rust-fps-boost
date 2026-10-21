@@ -39,15 +39,15 @@ Use with the `ultra-low` profile.
 
 ⚠ Confirm the valid range of `graphics.renderscale` in the F1 console (`find renderscale`).
 
+## Card overlays
+
+For popular cards there are dedicated overlays in [`cards/`](cards/), each with its own page explaining every value. **Prefer a card overlay** when your card is listed. The vendor overlays above are the fallback.
+
 ## Roadmap
 
-Planned overlays, by GPU class rather than single model, because cards in the same class behave alike:
-
-- [ ] `nvidia-gtx-4gb`: GTX 1050 Ti / 1650. VRAM limit: force half-res textures, Reflex on
-- [ ] `nvidia-rtx-8gb`: RTX 2060–4060: DLSS guidance per resolution
-- [ ] `amd-polaris`: RX 470–590. Older driver behaviour, VRAM tiers (4 GB vs 8 GB)
-- [ ] `amd-rdna`: RX 5000–7000
-- [ ] `intel-arc`: Arc A-series. DX11 driver performance has historically been weaker, so it needs testing
-- [ ] `amd-apu`: Ryzen APUs (Vega / 680M / 780M). Shared memory, dual-channel RAM is critical
+- [ ] `intel-arc`: Arc A/B-series. DX11 driver performance has historically been weaker, so it needs testing
+- [ ] `amd-apu`: Ryzen APUs (Vega / 680M / 780M). Shared memory, so dual-channel RAM is critical
+- [ ] Laptop variants where VRAM differs from desktop (RTX 3050/3060/4060 Laptop)
+- [ ] Benchmarks for every card in `cards/`, to replace the estimated profile recommendations
 
 Each new overlay should come with at least one benchmark report from matching hardware. See [methodology](../docs/methodology.md).

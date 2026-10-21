@@ -13,7 +13,34 @@ Every value in every profile has a written reason: what it costs (CPU, GPU, VRAM
 | [`balanced`](profiles/balanced.cfg) | GTX 1660 / RTX 2060–3060 / RX 6600 | Good visuals, cuts the expensive effects that add little |
 | [`quality`](profiles/quality.cfg) | RTX 3070+ / RX 6800+ | Best visuals, skipping effects that hurt visibility |
 
-After a profile, you can apply an optional **GPU overlay** from [`gpu/`](gpu/) (NVIDIA Reflex/DLSS, AMD, Intel iGPU). See [gpu/README.md](gpu/README.md).
+## Find your card
+
+Each popular card has its own overlay and a page explaining every value. Apply it on top of the profile recommended for your resolution.
+
+| Card | 1080p | 1440p |
+|---|---|---|
+| [GTX 1050 Ti](gpu/cards/gtx-1050-ti.md) | `low` | `ultra-low` |
+| [GTX 1060 6GB](gpu/cards/gtx-1060-6gb.md) / [3GB](gpu/cards/gtx-1060-3gb.md) | `low` | `ultra-low` |
+| [GTX 1650](gpu/cards/gtx-1650.md) | `low` | `ultra-low` |
+| [GTX 1660 Super](gpu/cards/gtx-1660-super.md) | `low` | `low` |
+| [RTX 2060](gpu/cards/rtx-2060.md) | `balanced` | `low` |
+| [RTX 3050](gpu/cards/rtx-3050.md) | `low` | `low` |
+| [RTX 3060](gpu/cards/rtx-3060.md) | `balanced` | `balanced` |
+| [RTX 4060](gpu/cards/rtx-4060.md) | `balanced` | `balanced` |
+| [RTX 5060](gpu/cards/rtx-5060.md) | `balanced` | `balanced` |
+| [RTX 5060 Ti](gpu/cards/rtx-5060-ti.md) | `quality` | `balanced` |
+| [RTX 5070](gpu/cards/rtx-5070.md) | `quality` | `quality` |
+| [RX 580 8GB](gpu/cards/rx-580-8gb.md) / [4GB](gpu/cards/rx-580-4gb.md) | `low` | `ultra-low` |
+| [RX 6600](gpu/cards/rx-6600.md) | `balanced` | `low` |
+| [RX 9070 XT](gpu/cards/rx-9070-xt.md) | `quality` | `quality` |
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\apply.ps1 -Profile low -Gpu gtx-1650
+```
+
+The recommendations are estimates until benchmarked. How the card overlays are built, and why these cards: [gpu/cards/README.md](gpu/cards/README.md).
+
+Card not listed? Use a vendor overlay (`nvidia`, `amd`, `intel-igpu`). See [gpu/README.md](gpu/README.md).
 
 ## Quick start
 
