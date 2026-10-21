@@ -15,24 +15,35 @@ Every value in every profile has a written reason: what it costs (CPU, GPU, VRAM
 
 ## Find your card
 
-Each popular card has its own overlay and a page explaining every value. Apply it on top of the profile recommended for your resolution.
+Click your card to open its config, or a profile to open that profile. Apply the card config on top of the profile for your resolution. **Why?** opens the page explaining every value.
 
-| Card | 1080p | 1440p |
-|---|---|---|
-| [GTX 1050 Ti](gpu/cards/gtx-1050-ti.md) | `low` | `ultra-low` |
-| [GTX 1060 6GB](gpu/cards/gtx-1060-6gb.md) / [3GB](gpu/cards/gtx-1060-3gb.md) | `low` | `ultra-low` |
-| [GTX 1650](gpu/cards/gtx-1650.md) | `low` | `ultra-low` |
-| [GTX 1660 Super](gpu/cards/gtx-1660-super.md) | `low` | `low` |
-| [RTX 2060](gpu/cards/rtx-2060.md) | `balanced` | `low` |
-| [RTX 3050](gpu/cards/rtx-3050.md) | `low` | `low` |
-| [RTX 3060](gpu/cards/rtx-3060.md) | `balanced` | `balanced` |
-| [RTX 4060](gpu/cards/rtx-4060.md) | `balanced` | `balanced` |
-| [RTX 5060](gpu/cards/rtx-5060.md) | `balanced` | `balanced` |
-| [RTX 5060 Ti](gpu/cards/rtx-5060-ti.md) | `quality` | `balanced` |
-| [RTX 5070](gpu/cards/rtx-5070.md) | `quality` | `quality` |
-| [RX 580 8GB](gpu/cards/rx-580-8gb.md) / [4GB](gpu/cards/rx-580-4gb.md) | `low` | `ultra-low` |
-| [RX 6600](gpu/cards/rx-6600.md) | `balanced` | `low` |
-| [RX 9070 XT](gpu/cards/rx-9070-xt.md) | `quality` | `quality` |
+<!-- readme-cards:start -->
+#### NVIDIA GeForce
+
+| Card | VRAM | Tier | 1080p | 1440p | |
+|---|---|---|---|---|---|
+| [**GTX 1050 Ti**](gpu/cards/gtx-1050-ti.cfg) | 4 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1050-ti.md) |
+| [**GTX 1060 6GB**](gpu/cards/gtx-1060-6gb.cfg) | 6 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1060-6gb.md) |
+| [**GTX 1060 3GB**](gpu/cards/gtx-1060-3gb.cfg) | 3 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1060-3gb.md) |
+| [**GTX 1650**](gpu/cards/gtx-1650.cfg) | 4 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1650.md) |
+| [**GTX 1660 Super**](gpu/cards/gtx-1660-super.cfg) | 6 GB | Entry | [`low`](profiles/low.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/gtx-1660-super.md) |
+| [**RTX 2060**](gpu/cards/rtx-2060.cfg) | 6 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/rtx-2060.md) |
+| [**RTX 3050**](gpu/cards/rtx-3050.cfg) | 8 GB | Entry | [`low`](profiles/low.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/rtx-3050.md) |
+| [**RTX 3060**](gpu/cards/rtx-3060.cfg) | 12 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-3060.md) |
+| [**RTX 4060**](gpu/cards/rtx-4060.cfg) | 8 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-4060.md) |
+| [**RTX 5060**](gpu/cards/rtx-5060.cfg) | 8 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-5060.md) |
+| [**RTX 5060 Ti**](gpu/cards/rtx-5060-ti.cfg) | 8 GB | High-end | [`quality`](profiles/quality.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-5060-ti.md) |
+| [**RTX 5070**](gpu/cards/rtx-5070.cfg) | 12 GB | High-end | [`quality`](profiles/quality.cfg) | [`quality`](profiles/quality.cfg) | [Why?](gpu/cards/rtx-5070.md) |
+
+#### AMD Radeon
+
+| Card | VRAM | Tier | 1080p | 1440p | |
+|---|---|---|---|---|---|
+| [**RX 580 8GB**](gpu/cards/rx-580-8gb.cfg) | 8 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/rx-580-8gb.md) |
+| [**RX 580 4GB**](gpu/cards/rx-580-4gb.cfg) | 4 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/rx-580-4gb.md) |
+| [**RX 6600**](gpu/cards/rx-6600.cfg) | 8 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/rx-6600.md) |
+| [**RX 9070 XT**](gpu/cards/rx-9070-xt.cfg) | 16 GB | High-end | [`quality`](profiles/quality.cfg) | [`quality`](profiles/quality.cfg) | [Why?](gpu/cards/rx-9070-xt.md) |
+<!-- readme-cards:end -->
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tools\apply.ps1 -Profile low -Gpu gtx-1650

@@ -19,8 +19,7 @@ Thanks for helping. The bar for changes is simple: **every value needs a reason,
 Card overlays and their pages are **generated**, so every card follows the same documented rules (R1–R5 in [gpu/cards/README.md](gpu/cards/README.md)):
 
 1. Add a row to `CARDS` in [tools/gen_cards.py](tools/gen_cards.py): specs from the TechPowerUp GPU database, a profile estimate, and card-specific notes.
-2. Run `python tools/gen_cards.py`.
-3. Add the card to the "Find your card" table in the main README.
+2. Run `python tools/gen_cards.py`. This also updates the "Find your card" list in the main README.
 
 Don't hand-edit files in `gpu/cards/`; they get overwritten. To change a rule, change the generator and the rule table together.
 

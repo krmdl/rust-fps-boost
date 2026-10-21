@@ -172,6 +172,45 @@ def page(card):
     return "\n".join(md)
 
 
+VENDOR_TITLES = {"nvidia": "NVIDIA GeForce", "amd": "AMD Radeon"}
+TIERS = [("ultra-low", "Entry"), ("low", "Entry"), ("balanced", "Mid-range"), ("quality", "High-end")]
+
+
+def short_name(name):
+    for prefix in VENDOR_TITLES.values():
+        name = name.replace(prefix + " ", "")
+    return name
+
+
+def profile_link(profile):
+    return f"[`{profile}`](profiles/{profile}.cfg)"
+
+
+def readme_block():
+    """Card list for the main README: card name links to its .cfg."""
+    tier_of = dict(TIERS)
+    out = []
+    for vendor, title in VENDOR_TITLES.items():
+        out += [f"#### {title}", "",
+                "| Card | VRAM | Tier | 1080p | 1440p | |",
+                "|---|---|---|---|---|---|"]
+        for slug, name, v, _, vram, *_rest in CARDS:
+            if v != vendor:
+                continue
+            p1080, p1440 = _rest[3], _rest[4]
+            out.append(
+                f"| [**{short_name(name)}**](gpu/cards/{slug}.cfg) | {vram} GB | {tier_of[p1080]} "
+                f"| {profile_link(p1080)} | {profile_link(p1440)} | [Why?](gpu/cards/{slug}.md) |")
+        out.append("")
+    return "\n".join(out).rstrip()
+
+
+def replace_block(path, start, end, body):
+    text = path.read_text(encoding="utf-8")
+    text = text[:text.index(start)] + "\n".join([start, body, end]) + text[text.index(end) + len(end):]
+    path.write_text(text, encoding="utf-8", newline="\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     table = []
@@ -190,6 +229,7 @@ def main():
     else:
         text = text.replace("CARD_TABLE", block)
     readme.write_text(text, encoding="utf-8", newline="\n")
+    replace_block(ROOT / "README.md", "<!-- readme-cards:start -->", "<!-- readme-cards:end -->", readme_block())
     print(f"Generated {len(CARDS)} cards in {OUT}")
 
 
