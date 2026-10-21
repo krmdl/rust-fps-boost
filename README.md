@@ -8,6 +8,10 @@ The best Rust settings for your graphics card, as documented `client.cfg` config
 4 profiles from potato PC to RTX, 16 per-GPU configs, a one-click installer with backup.<br>
 No placebo tweaks, no launch-option myths, no copy-pasted folklore.
 
+[![Download](https://img.shields.io/github/v/release/krmdl/rust-fps-boost?label=download&style=for-the-badge&color=cd412b)](https://github.com/krmdl/rust-fps-boost/releases/latest)
+[![Stars](https://img.shields.io/github/stars/krmdl/rust-fps-boost?style=for-the-badge&color=cd412b)](https://github.com/krmdl/rust-fps-boost/stargazers)
+<br>
+[![Validate](https://github.com/krmdl/rust-fps-boost/actions/workflows/validate.yml/badge.svg)](https://github.com/krmdl/rust-fps-boost/actions/workflows/validate.yml)
 ![Rust build](https://img.shields.io/badge/tested%20on-Rust%20Oct%202026-cd412b)
 ![GPU overlays](https://img.shields.io/badge/GPU%20overlays-16-informational)
 ![Sourced](https://img.shields.io/badge/every%20value-sourced%20or%20labelled-success)
@@ -20,7 +24,7 @@ No placebo tweaks, no launch-option myths, no copy-pasted folklore.
 
 ## Install in 2 minutes
 
-1. Click the green **Code** button → **Download ZIP**. Right-click the ZIP → **Extract All**.
+1. [**Download the latest release**](https://github.com/krmdl/rust-fps-boost/releases/latest) (the `rust-fps-boost-….zip` file). Right-click the ZIP → **Extract All**.
 2. **Quit Rust completely.** Rust saves its settings when it closes and would undo ours.
 3. Open the extracted folder and double-click **`install.bat`**, then choose **1**.
    It finds Rust, **detects your graphics card**, suggests a profile, and backs up your current config first.
