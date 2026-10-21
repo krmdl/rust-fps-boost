@@ -4,7 +4,7 @@ These appear in the game's own config dump and *might* improve performance, but 
 
 | Convar | Default | Hypothesis | Risk |
 |---|---|---|---|
-| `shadowcaching.enabled` | False | Caches shadow maps and updates distant shadows at lower rates (`shadowcaching.updateminframerate` / `updatemaxframerate`). Could be a big CPU win, since shadows are among the highest draw-call costs. | Shadow lag / flicker on moving objects. Could hide or delay enemy shadows. |
+| `shadowcaching.enabled` | False | Facepunch added it as "an experimental shadow caching mode for improved shadow rendering performance" [[F6]](sources.md#f6). It updates distant shadows at lower rates (`shadowcaching.updateminframerate` / `updatemaxframerate`). Purpose confirmed; still experimental, so it needs an A/B test before it ships. | Shadow lag / flicker on moving objects. Could hide or delay enemy shadows. |
 | `indirect_instancing.enabled` | False | GPU-driven indirect instanced rendering: fewer CPU draw calls. Possibly a large win on CPU-bound systems. | Experimental, may cause artifacts or crashes. |
 | `render.instancing_render_distance` | 1500 | Lowering it might cut instanced objects at distance. | Distant bases/deployables may disappear. |
 | `culling.entitymaxdist` | 5000 | Lower max entity distance means fewer entities processed. | Could cull things you need to see at long range. |

@@ -1,0 +1,32 @@
+name: "🐛 Bug or wrong setting"
+description: Installer error, a convar that no longer exists, or a setting that misbehaves
+labels: [bug]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: What's wrong?
+      options:
+        - Installer error
+        - Convar renamed or removed after a game update
+        - Setting causes a visual bug
+        - Docs are wrong
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: cmd
+    attributes:
+      label: What you ran
+      placeholder: "install.bat → option 1, or: apply.ps1 -Preset low -Gpu gtx-1650"
+  - type: textarea
+    id: output
+    attributes:
+      label: Error output / what you saw
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: build
+    attributes:
+      label: Rust build and Windows version

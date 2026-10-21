@@ -17,7 +17,7 @@ Per-convar reasoning lives in [convars.md](convars.md). This page explains the o
 - **Shadows stay at the lowest visible level** instead of off, because enemy shadows and depth cues matter.
 - **Textures at quarter resolution** (`globaltexturemipmaplimit 2`). iGPUs share system RAM, so VRAM pressure and memory bandwidth are the real bottleneck.
 - **Anisotropic filtering at 2×**: the only profile that lowers it, because on shared memory it isn't free.
-- **No anti-aliasing.** With grass removed there is little foliage left to shimmer.
+- **No anti-aliasing.** Grass at its minimum density leaves less foliage to shimmer.
 
 The game will look rough: buildings pop in at mid range and trees are mostly billboards. That's the trade.
 
@@ -36,7 +36,7 @@ Compared to ultra-low:
 - Mid-range LOD for trees/meshes so forests don't look like cardboard
 - Some particles, so you can still read explosions and smoke
 
-Grass, decor, AO, water reflections and all cosmetic post-processing stay **off**. These give the biggest FPS gains, and removing grass also improves visibility.
+Grass and decor stay at their minimum; AO, water reflections and all cosmetic post-processing stay **off**. Water and AO were among the larger measured costs [[C2]](sources.md#c2), and less ground clutter also makes players easier to spot.
 
 ## balanced
 

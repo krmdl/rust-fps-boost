@@ -1,98 +1,139 @@
-# Rust Optimized Configs
+<div align="center">
 
-Documented, reproducible `client.cfg` profiles for **Rust** (Facepunch), built mainly for **low-end and mid-range PCs**.
+# Rust FPS Configs
 
-Every value in every profile has a written reason: what it costs (CPU, GPU, VRAM or RAM), what you lose visually, and whether it changes how well you can see other players. No "trust me bro" tweaks.
+**More FPS in Rust on low-end PCs, and every setting tells you why.**
 
-## Profiles
+Documented `client.cfg` profiles and per-GPU tuning for **Rust (the Facepunch game)**.<br>
+No placebo tweaks, no launch-option myths, no copy-pasted folklore.
 
-| Profile | Target hardware | Goal |
-|---|---|---|
-| [`ultra-low`](profiles/ultra-low.cfg) | iGPU / laptops / 4-core CPUs / 8 GB RAM / ≤2 GB VRAM | Playable FPS at any cost to visuals |
-| [`low`](profiles/low.cfg) | GTX 1050 Ti–1650, RX 570–5500, 16 GB RAM | High, stable FPS while keeping the game readable |
-| [`balanced`](profiles/balanced.cfg) | GTX 1660 / RTX 2060–3060 / RX 6600 | Good visuals, cuts the expensive effects that add little |
-| [`quality`](profiles/quality.cfg) | RTX 3070+ / RX 6800+ | Best visuals, skipping effects that hurt visibility |
+![Rust build](https://img.shields.io/badge/tested%20on-Rust%20Oct%202026-cd412b)
+![GPU overlays](https://img.shields.io/badge/GPU%20overlays-16-informational)
+![Sourced](https://img.shields.io/badge/every%20value-sourced%20or%20labelled-success)
+![Platform](https://img.shields.io/badge/platform-Windows-0078D6)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
+[**Install**](#install-in-2-minutes) · [Find your GPU](#find-your-card) · [Why each setting?](docs/convars.md) · [Launch option myths](docs/launch-options.md) · [FAQ](docs/faq.md)
+
+</div>
+
+## Install in 2 minutes
+
+1. Click the green **Code** button → **Download ZIP**. Right-click the ZIP → **Extract All**.
+2. **Quit Rust completely.** Rust saves its settings when it closes and would undo ours.
+3. Open the extracted folder and double-click **`install.bat`**, then choose **1**.
+   It finds Rust, **detects your graphics card**, suggests a profile, and backs up your current config first.
+4. Start Rust. Changed your mind? Run `install.bat` again: **3** undoes the last install, **4** restores your original config.
+
+Your sensitivity, FOV, binds, audio and crosshair are **never touched**.
+
+> If Windows shows *"Windows protected your PC"*, click **More info → Run anyway**. The installer is plain text: [read it first](tools/apply.ps1) if you like.
+> Prefer typing? `powershell -ExecutionPolicy Bypass -File tools\apply.ps1 -Preset low -Gpu gtx-1650`. More in [docs/install.md](docs/install.md).
 
 ## Find your card
 
-Click your card to open its config, or a profile to open that profile. Apply the card config on top of the profile for your resolution. **Why?** opens the page explaining every value.
+Click your card to open its config, or a profile to open that profile. Pick the profile for your screen resolution; the card file adds a few card-specific tweaks on top. **Why?** explains every value. `install.bat` picks all of this for you.
 
 <!-- readme-cards:start -->
 #### NVIDIA GeForce
 
-| Card | VRAM | Tier | 1080p | 1440p | |
-|---|---|---|---|---|---|
-| [**GTX 1050 Ti**](gpu/cards/gtx-1050-ti.cfg) | 4 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1050-ti.md) |
-| [**GTX 1060 6GB**](gpu/cards/gtx-1060-6gb.cfg) | 6 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1060-6gb.md) |
-| [**GTX 1060 3GB**](gpu/cards/gtx-1060-3gb.cfg) | 3 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1060-3gb.md) |
-| [**GTX 1650**](gpu/cards/gtx-1650.cfg) | 4 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1650.md) |
-| [**GTX 1660 Super**](gpu/cards/gtx-1660-super.cfg) | 6 GB | Entry | [`low`](profiles/low.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/gtx-1660-super.md) |
-| [**RTX 2060**](gpu/cards/rtx-2060.cfg) | 6 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/rtx-2060.md) |
-| [**RTX 3050**](gpu/cards/rtx-3050.cfg) | 8 GB | Entry | [`low`](profiles/low.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/rtx-3050.md) |
-| [**RTX 3060**](gpu/cards/rtx-3060.cfg) | 12 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-3060.md) |
-| [**RTX 4060**](gpu/cards/rtx-4060.cfg) | 8 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-4060.md) |
-| [**RTX 5060**](gpu/cards/rtx-5060.cfg) | 8 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-5060.md) |
-| [**RTX 5060 Ti**](gpu/cards/rtx-5060-ti.cfg) | 8 GB | High-end | [`quality`](profiles/quality.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-5060-ti.md) |
-| [**RTX 5070**](gpu/cards/rtx-5070.cfg) | 12 GB | High-end | [`quality`](profiles/quality.cfg) | [`quality`](profiles/quality.cfg) | [Why?](gpu/cards/rtx-5070.md) |
+| Card | VRAM | 1080p | 1440p | |
+|---|---|---|---|---|
+| [**GTX 1050 Ti**](gpu/cards/gtx-1050-ti.cfg) | 4 GB | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1050-ti.md) |
+| [**GTX 1060 3GB**](gpu/cards/gtx-1060-3gb.cfg) | 3 GB | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1060-3gb.md) |
+| [**GTX 1060 6GB**](gpu/cards/gtx-1060-6gb.cfg) | 6 GB | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1060-6gb.md) |
+| [**GTX 1650**](gpu/cards/gtx-1650.cfg) | 4 GB | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/gtx-1650.md) |
+| [**GTX 1660 Super**](gpu/cards/gtx-1660-super.cfg) | 6 GB | [`low`](profiles/low.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/gtx-1660-super.md) |
+| [**RTX 2060**](gpu/cards/rtx-2060.cfg) | 6 GB | [`balanced`](profiles/balanced.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/rtx-2060.md) |
+| [**RTX 3050**](gpu/cards/rtx-3050.cfg) | 8 GB | [`low`](profiles/low.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/rtx-3050.md) |
+| [**RTX 3060**](gpu/cards/rtx-3060.cfg) | 12 GB | [`balanced`](profiles/balanced.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-3060.md) |
+| [**RTX 4060**](gpu/cards/rtx-4060.cfg) | 8 GB | [`balanced`](profiles/balanced.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-4060.md) |
+| [**RTX 5060**](gpu/cards/rtx-5060.cfg) | 8 GB | [`balanced`](profiles/balanced.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-5060.md) |
+| [**RTX 5060 Ti**](gpu/cards/rtx-5060-ti.cfg) | 8 GB | [`quality`](profiles/quality.cfg) | [`balanced`](profiles/balanced.cfg) | [Why?](gpu/cards/rtx-5060-ti.md) |
+| [**RTX 5070**](gpu/cards/rtx-5070.cfg) | 12 GB | [`quality`](profiles/quality.cfg) | [`quality`](profiles/quality.cfg) | [Why?](gpu/cards/rtx-5070.md) |
 
 #### AMD Radeon
 
-| Card | VRAM | Tier | 1080p | 1440p | |
-|---|---|---|---|---|---|
-| [**RX 580 8GB**](gpu/cards/rx-580-8gb.cfg) | 8 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/rx-580-8gb.md) |
-| [**RX 580 4GB**](gpu/cards/rx-580-4gb.cfg) | 4 GB | Entry | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/rx-580-4gb.md) |
-| [**RX 6600**](gpu/cards/rx-6600.cfg) | 8 GB | Mid-range | [`balanced`](profiles/balanced.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/rx-6600.md) |
-| [**RX 9070 XT**](gpu/cards/rx-9070-xt.cfg) | 16 GB | High-end | [`quality`](profiles/quality.cfg) | [`quality`](profiles/quality.cfg) | [Why?](gpu/cards/rx-9070-xt.md) |
+| Card | VRAM | 1080p | 1440p | |
+|---|---|---|---|---|
+| [**RX 580 4GB**](gpu/cards/rx-580-4gb.cfg) | 4 GB | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/rx-580-4gb.md) |
+| [**RX 580 8GB**](gpu/cards/rx-580-8gb.cfg) | 8 GB | [`low`](profiles/low.cfg) | [`ultra-low`](profiles/ultra-low.cfg) | [Why?](gpu/cards/rx-580-8gb.md) |
+| [**RX 6600**](gpu/cards/rx-6600.cfg) | 8 GB | [`balanced`](profiles/balanced.cfg) | [`low`](profiles/low.cfg) | [Why?](gpu/cards/rx-6600.md) |
+| [**RX 9070 XT**](gpu/cards/rx-9070-xt.cfg) | 16 GB | [`quality`](profiles/quality.cfg) | [`quality`](profiles/quality.cfg) | [Why?](gpu/cards/rx-9070-xt.md) |
 <!-- readme-cards:end -->
 
-```powershell
-powershell -ExecutionPolicy Bypass -File tools\apply.ps1 -Profile low -Gpu gtx-1650
-```
+Recommendations are estimates until benchmarked ([how cards are tuned](gpu/cards/README.md)). Card not listed? `install.bat` falls back to a vendor overlay (`nvidia`, `amd`, `intel-igpu`); see [gpu/README.md](gpu/README.md).
 
-The recommendations are estimates until benchmarked. How the card overlays are built, and why these cards: [gpu/cards/README.md](gpu/cards/README.md).
+## Profiles
 
-Card not listed? Use a vendor overlay (`nvidia`, `amd`, `intel-igpu`). See [gpu/README.md](gpu/README.md).
+| Profile | Built for | Goal |
+|---|---|---|
+| [`ultra-low`](profiles/ultra-low.cfg) | Integrated graphics, old laptops, 4-core CPUs, 8 GB RAM | Playable FPS at any cost to visuals |
+| [`low`](profiles/low.cfg) | GTX 1050 Ti–1660, RX 580, 16 GB RAM | High, stable FPS while keeping the game readable |
+| [`balanced`](profiles/balanced.cfg) | RTX 2060–5060, RX 6600 | Good visuals, minus the expensive effects that add little |
+| [`quality`](profiles/quality.cfg) | RTX 5060 Ti and up, RX 9070 XT | Best visuals, skipping effects that hurt visibility |
 
-## Quick start
+Design goals of each profile: [docs/profiles.md](docs/profiles.md).
 
-1. **Close Rust completely.** Rust overwrites `client.cfg` when it exits.
-2. Run the installer from this repo's folder (it backs up your current config first):
+## Why trust this over an "FPS BOOST 2026" video?
 
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File tools\apply.ps1 -Profile low
-   ```
+- ✅ **Only real convars.** Every setting exists in a `client.cfg` written by the current game build. [CI checks this](tools/validate.py) on every commit.
+- 📚 **Every value has a reason and a source:** Facepunch devblogs, Unity engine docs, NVIDIA, third-party measurements, or an honest `reasoning` label. [See the table →](docs/convars.md)
+- 🎯 **Visibility first.** We keep shadows on (they give away enemies), cut effects that wash out your view (bloom, sun shafts, motion blur), and flag every setting that gives a visual edge.
+- 🚫 **Myths called out.** `-maxMem`, `-malloc=system`, `-cpuCount`, `-high` aren't in Unity's argument list. [Which launch options do nothing →](docs/launch-options.md)
+- 📏 **Expected vs measured.** Nothing is called "measured" without a report in [`benchmarks/`](benchmarks/). On a GTX 1650, 1050 Ti or RX 580? [Your benchmark](../../issues/new?template=benchmark.yml) is the most useful contribution.
 
-   Add a GPU overlay if you want one:
+## Safety
 
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File tools\apply.ps1 -Profile low -Gpu nvidia
-   ```
+- The configs contain only console variables (convars) that Rust itself writes to `cfg\client.cfg`, the same file the in-game Options menu saves to.
+- Nothing is injected, no game files or memory are modified, and the installer refuses to run while Rust is open.
+- The installer is readable PowerShell ([tools/apply.ps1](tools/apply.ps1)) and backs up your config before every change.
+- We're not affiliated with Facepunch Studios or Easy Anti-Cheat and can't make guarantees on their behalf. Changing graphics settings in `client.cfg` is what the game's own menu does.
 
-3. Launch Rust.
+## FAQ
 
-The installer only changes the convars listed in the profile. Your sensitivity, FOV, audio, binds and crosshair stay as they are. For manual install and restoring a backup, see [docs/install.md](docs/install.md).
+<details>
+<summary><b>Did it work?</b></summary>
+
+In Rust press **F1**, type `graphics.drawdistance` and press Enter. It should show the profile's value (1500 on `low`).
+</details>
+
+<details>
+<summary><b>My settings went back to normal.</b></summary>
+
+Picking a preset in Rust's Graphics menu overwrites these values, and big game updates can too. Quit Rust and run `install.bat` again.
+</details>
+
+<details>
+<summary><b>How do I undo it?</b></summary>
+
+`install.bat` → **3** (undo the last install) or **4** (your config from before the first install). Backups live next to your config in `Rust\cfg\`.
+</details>
+
+<details>
+<summary><b>Will this give me 2× FPS?</b></summary>
+
+No honest config can promise a number. On high-end PCs Rust is mostly limited by the CPU, so settings change less. The biggest gains are expected on low-end GPUs, which is who this project is built for. Measured results will appear in [`benchmarks/`](benchmarks/).
+</details>
+
+More questions and a glossary: [docs/faq.md](docs/faq.md).
 
 ## Documentation
 
-- [docs/convars.md](docs/convars.md): **the rationale table**, every convar we touch, why, and its source
-- [docs/sources.md](docs/sources.md): every source we rely on (Facepunch, Unity docs, NVIDIA), and how strong each kind of evidence is
-- [docs/profiles.md](docs/profiles.md): design goals of each profile
-- [docs/methodology.md](docs/methodology.md): how we measure (and how you can too)
-- [docs/launch-options.md](docs/launch-options.md): Steam launch options, including which popular ones are myths
-- [docs/candidates.md](docs/candidates.md): experimental convars still waiting to be tested
-- [reference/client.default.cfg](reference/client.default.cfg): full convar dump from the current game build
+| | |
+|---|---|
+| [docs/convars.md](docs/convars.md) | **The rationale table**: every convar we touch, why, and its source |
+| [docs/sources.md](docs/sources.md) | Every source we rely on, and how strong each kind of evidence is |
+| [docs/install.md](docs/install.md) | Manual install, installer options, restoring backups |
+| [docs/launch-options.md](docs/launch-options.md) | Steam launch options, including which popular ones do nothing |
+| [docs/methodology.md](docs/methodology.md) | How we benchmark, and how you can too |
+| [docs/candidates.md](docs/candidates.md) | Experimental convars waiting to be tested |
+| [docs/faq.md](docs/faq.md) | FAQ and glossary |
 
-## Principles
+## Contributing
 
-1. **Only real convars.** Each profile key must appear in a `client.cfg` that the game itself wrote ([reference dump](reference/client.default.cfg)). Copy-pasted folklore is out.
-2. **Never touch personal preferences.** Sensitivity, FOV, audio, UI scale, crosshair, binds and FPS cap belong to you.
-3. **Visibility first.** Low profiles remove clutter (grass, post-processing) that hides players. We never ship a setting just because it gives a visual advantage, and we flag any setting that does.
-4. **Cited, then measured.** Every claim links to a source (Facepunch, Unity engine docs, NVIDIA) or is honestly labelled *reasoning*. Until there's benchmark data, an entry says *expected* impact, never *measured*.
-
-## Status
-
-`v0.1`. The profiles are built from how each convar works, not from benchmarks yet. Benchmark contributions are very welcome: see [benchmarks/README.md](benchmarks/README.md).
+Benchmarks, new cards and corrections are welcome, especially corrections backed by a source. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-MIT. See [LICENSE](LICENSE). Not affiliated with Facepunch Studios.
+MIT, see [LICENSE](LICENSE). Not affiliated with Facepunch Studios. "Rust" is a trademark of Facepunch Studios.

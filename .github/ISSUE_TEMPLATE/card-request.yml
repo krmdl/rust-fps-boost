@@ -1,0 +1,31 @@
+name: "🎮 Add my graphics card"
+description: Request an overlay for a GPU that isn't listed yet
+labels: [card-request]
+body:
+  - type: input
+    id: card
+    attributes:
+      label: Exact card name
+      description: "Not sure? Press Win+R, type dxdiag, open the Display tab."
+      placeholder: RTX 3060 Laptop
+    validations:
+      required: true
+  - type: input
+    id: vram
+    attributes:
+      label: Dedicated VRAM
+      description: Task Manager → Performance → GPU → "Dedicated GPU memory"
+      placeholder: 6 GB
+    validations:
+      required: true
+  - type: dropdown
+    id: res
+    attributes:
+      label: Resolution you play at
+      options: [1080p, 1440p, 4K, Other]
+  - type: checkboxes
+    id: bench
+    attributes:
+      label: Can you help?
+      options:
+        - label: I can run a benchmark on this card (gets it added fastest)

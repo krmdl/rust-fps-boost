@@ -8,9 +8,18 @@ Thanks for helping. The bar for changes is simple: **every value needs a reason,
 2. Update the matching row in [docs/convars.md](docs/convars.md) with *why*, and fill the **Src** column: add new sources to [docs/sources.md](docs/sources.md), or write `reasoning` if you have none.
 3. If you have measurements, add a report under [benchmarks/](benchmarks/).
 
+## Before you open a PR
+
+```bash
+python tools/validate.py         # profiles/overlays only use real convars, same key order
+python tools/gen_cards.py --check  # generated card files are up to date
+```
+
+CI runs both on every push.
+
 ## Adding a new convar
 
-- It must appear in a `client.cfg` written by the current game build. If [reference/client.default.cfg](reference/client.default.cfg) is out of date, update it in the same PR (strip personal values like `client.autoconnect`).
+- It must appear in a `client.cfg` written by the current game build. If [reference/client.dump.cfg](reference/client.dump.cfg) is out of date, update it in the same PR (strip personal values like `client.autoconnect`).
 - Add it to **all four** profiles and to `docs/convars.md`.
 - If you aren't sure about its effect yet, add it to [docs/candidates.md](docs/candidates.md) instead.
 
@@ -31,5 +40,5 @@ See the roadmap in [gpu/README.md](gpu/README.md). Overlays should only contain 
 
 Rust updates monthly and convars sometimes get renamed or removed. After a major update:
 
-1. Launch the game, quit, and diff your new `client.cfg` keys against `reference/client.default.cfg`.
+1. Launch the game, quit, and diff your new `client.cfg` keys against `reference/client.dump.cfg`.
 2. Open an issue or PR listing renamed/removed convars.

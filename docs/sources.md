@@ -12,7 +12,7 @@ Rust is built on **Unity**, so many convars are thin wrappers over Unity engine 
 | `[U*]` | Unity engine documentation | Official for the engine mechanism. Mapping to the Rust convar is inferred. |
 | `[N*]` | NVIDIA announcements | Official vendor claim (best-case numbers) |
 | `[G*]` | General graphics references | Explains the technique, not Rust |
-| `[C*]` | Community guides | Weak. Listed for transparency, needs benchmark confirmation. |
+| `[C*]` | Community guides and third-party benchmarks | Weak to medium. A measured third-party test (C2) beats reasoning, but it isn't our hardware. |
 | reasoning | No source found. Logic only. | Weakest. Top priority for [benchmarks](../benchmarks/). |
 
 ## Facepunch (Rust)
@@ -20,11 +20,23 @@ Rust is built on **Unity**, so many convars are thin wrappers over Unity engine 
 <a id="f1"></a>**[F1]** Facepunch, *The Performance Update* (devblog, 6 Sep 2018). Explains that LOD distances on dozens of small objects were adjusted so they "LOD and cull quicker", that allocations causing **garbage-collector stutter** were fixed, and that most of the work targeted **CPU** performance. Swamp tree draw calls were halved by merging textures.
 https://rust.facepunch.com/blog/the-performance-update
 
-<a id="f2"></a>**[F2]** Facepunch changelog: adds a new **HLOD** monument rendering system.
-https://rust.facepunch.com/changes/9
+<a id="f2"></a>**[F2]** Facepunch, *November Update* (Prototype 17, 3 Nov 2022): "New HLOD monument rendering system".
+https://rust.facepunch.com/changelist/3935
 
-<a id="f3"></a>**[F3]** Facepunch, September patch changelist: `graphics.vclouds` replaced by `graphics.volumetric_clouds`, plus a fix for HLOD convars that could stop monument geometry from rendering.
+<a id="f3"></a>**[F3]** Facepunch, *September patch* (5 Sep 2024): "Fixed a case where switching HLOD convars would result in monument geometry not rendering".
 https://rust.facepunch.com/changelist/3990
+
+<a id="f4"></a>**[F4]** Facepunch, *Maintenance* devblog (4 Sep 2025): "the graphics.vclouds convar has been replaced by graphics.volumetric_clouds".
+https://rust.facepunch.com/news/maintenance · https://rust.facepunch.com/changelist/4021
+
+<a id="f5"></a>**[F5]** Facepunch, *Harder Core* devblog (7 Aug 2025): volumetric clouds "can also be enabled through the console using graphics.vclouds 1 through 4, with 4 being the highest quality but most taxing on your GPU".
+https://rust.facepunch.com/news/harder-core/
+
+<a id="f6"></a>**[F6]** Facepunch, *Common Ground* (2 Jul 2026): "Added an experimental shadow caching mode for improved shadow rendering performance" and "Fixed hatch on the ladder hatch not rendering shadows with 'graphics.aggressiveShadowLod' enabled".
+https://rust.facepunch.com/changelist/4043
+
+<a id="f7"></a>**[F7]** Facepunch, *2025 Recap* (1 Jan 2026): "Overhauled Graphics settings", "Added DLAA option to the graphics menu", "Improved TAA implementation", "Added 'fps.startlogging', outputs a csv of frametimes", "Fixed biome fog visibility being affected by draw distance".
+https://rust.facepunch.com/changelist/4031
 
 ## Unity engine
 
@@ -64,14 +76,16 @@ https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html
 <a id="n1"></a>**[N1]** NVIDIA, *Rust: NVIDIA Reflex Gives Players A Free Upgrade* (May 2021). Reflex in Rust, GTX 900 series or newer, "up to 38%" lower system latency (vendor figure).
 https://www.nvidia.com/en-gb/geforce/news/rust-reflex-out-now/
 
-<a id="n2"></a>**[N2]** NVIDIA, June 2021 RTX/DLSS game update: DLSS added to Rust (July 2021), "up to 50%" more performance at 4K (vendor figure).
-https://www.nvidia.com/en-us/geforce/news/june-2021-rtx-dlss-game-update/
+<a id="n2"></a>**[N2]** NVIDIA, *Rust: NVIDIA DLSS out now* (1 Jul 2021): "frame rates increased by up to 50% at 4K with DLSS" (vendor figure).
+https://www.nvidia.com/en-us/geforce/news/rust-nvidia-dlss-out-now
+
+<a id="n3"></a>**[N3]** NVIDIA, Reflex optimizations for Rust and Escape from Tarkov (24 Aug 2021): after the Reflex SDK 1.5 update, Reflex in Rust "reduces system latency by up to 51%". On Reflex Boost: "these optimizations can mean higher power usage or a slight reduction in FPS".
+https://www.nvidia.com/en-us/geforce/news/nvidia-reflex-rust-escape-from-tarkov-optimizations
 
 ## Hardware data
 
-<a id="h1"></a>**[H1]** Valve, *Steam Hardware & Software Survey*, video card table. In September 2026 the top cards were RTX 5070, RTX 5060, RTX 5060 Ti, RTX 4060 and RTX 3060, with the RX 9070 XT the top AMD card (as reported by Digital Citizen; outlets cite 5.86% or 6.15% for the RTX 5070 depending on the table used).
-https://store.steampowered.com/hwsurvey/videocard/ ·
-https://www.digitalcitizen.life/nvidia-rtx-5070-most-popular-gpu-steam-hardware-survey-september-2026/
+<a id="h1"></a>**[H1]** Valve, *Steam Hardware & Software Survey: September 2026*, "All video cards" table: RTX 5070 6.15%, RTX 5060 4.40%, RTX 5060 Ti 4.06%, RTX 4060 3.89%, RTX 3060 3.66%, RTX 3050 2.90%, GTX 1650 2.19%, RX 9070 XT 1.42% (the most common AMD discrete card).
+https://store.steampowered.com/hwsurvey/videocard/
 
 <a id="h2"></a>**[H2]** TechPowerUp GPU database: architecture, VRAM, memory bus and bandwidth for every card page in [`gpu/cards/`](../gpu/cards/).
 https://www.techpowerup.com/gpu-specs/
@@ -83,8 +97,14 @@ https://documentation.simplygon.com/SimplygonSDK_10.4.199.0/ue5/concepts/hlod.ht
 
 ## Community (weak)
 
-<a id="c1"></a>**[C1]** GameRevolution, *Rust: How to fix stuttering, lag spikes, and freezing*. Recommends raising `gc.buffer` (e.g. 2048) to run GC less often. **Community sources disagree on the default value and exact semantics, and we found no official Facepunch documentation for `gc.buffer`.**
-https://www.gamerevolution.com/?p=670682
+<a id="c1"></a>**[C1]** GameRevolution, *Rust: How to fix stuttering, lag spikes, and freezing* (Dec 2020). Recommends raising `gc.buffer` (e.g. 2048) to run GC less often, and gives a default of 256. **Old, community-only, and contradicted by the value in our reference dump (1965). We found no official Facepunch documentation for `gc.buffer`.**
+https://www.gamerevolution.com/guides/670682-rust-how-fix-stuttering-lag-spikes-freezing
+
+<a id="c2"></a>**[C2]** PCOptimizedSettings, *Rust PC settings optimization guide* (14 Apr 2025). Per-setting FPS measurements on **RTX 4090 + i9-12900K**. This is a high-end, often CPU-limited system, so its percentages show the direction of an effect, not its size on low-end PCs. It predates the 2025 graphics menu overhaul [[F7]](#f7). Figures we cite: LOD bias up to 50% near compounds, draw distance up to 10% (values 500–2500 tested), water quality up to 10%, water reflections 8%, AO up to 6%, shadow quality top value 5–6% (0 = hard shadows), tree quality up to 5%, sun shafts 3–4%, grass shadows 3–4%, shadow lights 2–4%, contact shadows 2–3%, grass quality ~2%, max tree meshes "nominal", particle raycast budget "trivial", TSSAA over 10% faster than DLAA.
+https://pcoptimizedsettings.com/rust-optimized-settings-performance-guide-updated-april-2025/
+
+<a id="c3"></a>**[C3]** Corrosion Hour, *How to turn off grass in Rust* (status as of 2018): grass can't be turned off or fully removed. Old, but nothing newer or official contradicts it.
+https://www.corrosionhour.com/how-to-turn-off-grass-in-rust/
 
 ---
 

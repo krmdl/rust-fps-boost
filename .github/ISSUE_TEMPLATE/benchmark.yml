@@ -1,0 +1,50 @@
+name: "📊 Benchmark report"
+description: Share before/after FPS. This is the most valuable contribution.
+labels: [benchmark]
+body:
+  - type: markdown
+    attributes:
+      value: "Please follow [docs/methodology.md](../blob/main/docs/methodology.md). A pull request adding a file to `benchmarks/` is even better."
+  - type: input
+    id: gpu
+    attributes:
+      label: GPU and VRAM
+      placeholder: GTX 1650 4 GB
+    validations:
+      required: true
+  - type: input
+    id: cpu
+    attributes:
+      label: CPU / RAM (size, speed, channels)
+      placeholder: i5-9400F / 16 GB 2666 MHz dual-channel
+    validations:
+      required: true
+  - type: input
+    id: setup
+    attributes:
+      label: Resolution · profile · overlay · Rust build
+      placeholder: 1080p · low · gtx-1650 · build 12345
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Results (median of 3 runs, 60 s each)
+      value: |
+        | Scene | Config | Avg FPS | 1% low |
+        |---|---|---|---|
+        | Forest | stock | | |
+        | Forest | profile | | |
+        | Town | stock | | |
+        | Town | profile | | |
+    validations:
+      required: true
+  - type: input
+    id: tool
+    attributes:
+      label: Capture tool
+      placeholder: CapFrameX / PresentMon
+  - type: textarea
+    id: notes
+    attributes:
+      label: Visual differences, stutter, anything odd

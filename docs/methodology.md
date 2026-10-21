@@ -8,7 +8,7 @@ A config claim is only as good as the measurement behind it. Rust is a hard game
 - **1% low FPS**: the number you actually *feel*, since stutter lives here
 - **Frame time graph**: spikes show GC hitches, shader compilation, streaming
 
-Use [CapFrameX](https://www.capframex.com/) or [PresentMon](https://github.com/GameTechDev/PresentMon) to capture. The in-game `perf 1` overlay works for quick checks but can't record.
+Use [CapFrameX](https://www.capframex.com/) or [PresentMon](https://github.com/GameTechDev/PresentMon) to capture. The in-game `perf 1` overlay works for quick checks but can't record. Rust also has a built-in logger: `fps.startlogging` in the F1 console "outputs a csv of frametimes" [[F7]](sources.md#f7), which needs no extra software.
 
 ## Test procedure
 
@@ -34,4 +34,4 @@ Copy [`benchmarks/TEMPLATE.md`](../benchmarks/TEMPLATE.md) to `benchmarks/<date>
 | *measured* | At least one benchmark report in `benchmarks/` backs it up. |
 | *confirmed* | Reproduced on 2+ different hardware setups. |
 
-Everything in v0.1 is *expected*.
+Until the first benchmark report lands, everything is *expected* (some rows cite third-party measurements on high-end hardware, see [convars.md](convars.md)).
