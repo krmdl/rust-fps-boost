@@ -32,6 +32,17 @@ None of these appear in Unity's player argument list [[U9]](sources.md#u9), and 
 | `-exThreads=N` | Not a Unity argument. |
 | `-high` | Not a Unity argument. The idea (raising process priority) can be tested with Task Manager instead, but we have no evidence it helps. |
 | `-USEALLAVAILABLECORES` | A Source-engine flag, not Unity. |
+| `-graphics.waves 0` | Often listed as "proven" in 2026 guides [[C6]](sources.md#c6), but `graphics.waves` isn't among the settings the current game saves to `client.cfg` ([reference dump](../reference/client.dump.cfg)), and no guide shows a measurement. |
+| `-headlerp`, `-client.headlerp`, `-headlerp_inertia`, `-rate 120` | Still copied between Steam guides [[C6]](sources.md#c6). None is a Unity argument or a saved setting in the current build, and no guide shows a measurement. |
+
+## Convars as launch options
+
+Many guides put convars in the launch options, e.g. `-effects.maxgibs 0` or `+gc.buffer 2048`. Rust does accept convars this way, but it's the same as having them in `client.cfg`, which our profiles already do. Only add them if you know a setting keeps getting reset.
+
+## Also popular, still unproven
+
+- **Binding `gc.collect` or `pool.clear_*` to a key** and pressing it every 30 minutes. It's real but a manual workaround, and one guide warns `pool.clear_prefabs` causes problems [[C6]](sources.md#c6).
+- **"`-window-mode exclusive` eats FPS".** One 2026 comment claims this, with no data. It contradicts the Unity docs' description, so we keep recommending exclusive fullscreen until someone measures it.
 
 If you have benchmark data showing a measurable effect for any of these on the current build, open an issue (see [methodology.md](methodology.md)). We'll move it, with the evidence.
 

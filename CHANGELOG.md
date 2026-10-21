@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.4.0 – 2026-10-22
+
+Community research round: four research passes over Steam Community guides and threads, howmanyfps player captures, guide sites and Facepunch devblogs (Reddit blocks automated access, so it isn't covered). Key claims were verified at the source before being applied.
+
+### Changed
+- `graphics.shadowlights` 0 → 1 on ultra-low and low: Facepunch raised the minimum to 1 in March 2026
+- `tree.meshes` 0 → 10 on ultra-low: the slider's minimum
+- `effects.sharpen` on for balanced and quality
+- Texture rule R1: 6 GB cards now get half-resolution textures (Rust fills 5–5.8 GB on 6 GB cards in player captures); affects GTX 1060 6GB, GTX 1660 Super, RTX 2060
+
+### Added
+- "Free FPS fixes outside the config" in the README: mouse polling rate (official Facepunch PSA after the Unity 6 update) and the Rust Render Pipeline toggle
+- Community reports with links on every card page; player evidence for CPU-bound behaviour
+- Anti-aliasing mapping (0 Off / 1 FXAA / 2 SMAA / 3 TSSAA)
+- Candidates: `rrp.enabled`, `culling.toggle`, eighth-resolution textures
+- New launch-option myths and a note on convars as launch options
+- Sources F8–F10 (Shipshape, Built Different, Livestock) and C4–C6 (convar mapping guide, howmanyfps, Steam Community)
+
 ## v0.3.0 – 2026-10-22
 
 Reviewed by three specialist passes (presentation, technical accuracy, installer UX). Every finding was checked against its source before being applied.

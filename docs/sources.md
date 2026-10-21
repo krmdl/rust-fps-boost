@@ -38,6 +38,15 @@ https://rust.facepunch.com/changelist/4043
 <a id="f7"></a>**[F7]** Facepunch, *2025 Recap* (1 Jan 2026): "Overhauled Graphics settings", "Added DLAA option to the graphics menu", "Improved TAA implementation", "Added 'fps.startlogging', outputs a csv of frametimes", "Fixed biome fog visibility being affected by draw distance".
 https://rust.facepunch.com/changelist/4031
 
+<a id="f8"></a>**[F8]** Facepunch, *Shipshape* (5 Mar 2026): "Max Shadow Lights has also had its minimum value changed to 1 to prevent light-leaking issues." The shadow settings were "reworked to be part of a Shadow Quality preset setting" under Graphics Quality, and the separate Shadow section was removed.
+https://rust.facepunch.com/news/shipshape
+
+<a id="f9"></a>**[F9]** Facepunch, *Built Different* (4 Jun 2026): "Upgrade to Unity 6". PSA: "The Unity 6 update changed how mouse inputs are processed. High polling rate mice (1000Hz+) are now causing significant CPU overhead issues and frame drops."
+https://rust.facepunch.com/news/built-different
+
+<a id="f10"></a>**[F10]** Facepunch, *Livestock Update* (1 Oct 2026): migration to the **Rust Render Pipeline**, "a custom Scriptable Render Pipeline made specifically for Rust". It can be toggled under the Experimental tab for the first month; "you should see slightly better performance in most areas of the game, as the new pipeline comes with less overhead." It is expected to become the default after the next patch.
+https://rust.facepunch.com/news/livestock
+
 ## Unity engine
 
 <a id="u1"></a>**[U1]** `QualitySettings.globalTextureMipmapLimit`: "1" = half-size textures, "2" = quarter-size, default 0. Changing it re-uploads loaded textures. Only applies to 2D textures.
@@ -105,6 +114,15 @@ https://pcoptimizedsettings.com/rust-optimized-settings-performance-guide-update
 
 <a id="c3"></a>**[C3]** Corrosion Hour, *How to turn off grass in Rust* (status as of 2018): grass can't be turned off or fully removed. Old, but nothing newer or official contradicts it.
 https://www.corrosionhour.com/how-to-turn-off-grass-in-rust/
+
+<a id="c4"></a>**[C4]** Steam guide mapping every menu option to its convar and range (checked July 2024, **before** the 2025–26 menu changes). Gives `effects.antialiasing` 0 = Off, 1 = FXAA, 2 = SMAA, 3 = TSSAA; `tree.meshes` 10–100; `graphics.reflexmode` 2 = On + Boost; `culling.toggle` = Occlusion Culling; `gc.buffer` 64–4082.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3180714936
+
+<a id="c5"></a>**[C5]** howmanyfps.com Rust sessions (Mar–Oct 2026): player-submitted captures with avg / 1% low FPS, CPU/GPU usage, VRAM and the in-game settings. Real recordings, but location in the game isn't recorded and we haven't reproduced them. Individual sessions are linked from the card pages.
+https://howmanyfps.com/benchmarks/rust
+
+<a id="c6"></a>**[C6]** Steam Community: Rust discussion threads and the most-rated 2025–26 FPS guides (e.g. 3727010750, 3288259810). Player anecdotes, usually without settings or location; useful for consensus and for spotting problems (e.g. high polling rate mice), not as measurements. Individual threads are linked where cited.
+https://steamcommunity.com/app/252490/discussions/
 
 ---
 

@@ -35,6 +35,14 @@ Your sensitivity, FOV, binds, audio and crosshair are **never touched**.
 > If Windows shows *"Windows protected your PC"*, click **More info → Run anyway**. The installer is plain text: [read it first](tools/apply.ps1) if you like.
 > Prefer typing? `powershell -ExecutionPolicy Bypass -File tools\apply.ps1 -Preset low -Gpu gtx-1650`. More in [docs/install.md](docs/install.md).
 
+## Free FPS fixes outside the config
+
+These come straight from Facepunch, and no config can do them for you:
+
+1. **Lower your mouse polling rate to 1000 Hz or less.** Since Rust moved to Unity 6, "high polling rate mice (1000Hz+) are now causing significant CPU overhead issues and frame drops" ([Facepunch](docs/sources.md#f9)). Players report big drops when turning the camera that disappear at 500–1000 Hz. Change it in your mouse software.
+2. **Try the Rust Render Pipeline.** Options → **Experimental** → Rust Render Pipeline. Facepunch expects "slightly better performance in most areas" ([Facepunch](docs/sources.md#f10)). It's still experimental, so switch back if you see issues.
+3. **Check what's limiting you.** Task Manager → Performance → GPU while playing. Below ~90% GPU usage means your **CPU** is the limit: a lower profile helps more than a better graphics card would. [Why](gpu/cards/README.md#where-card-tuning-helps)
+
 ## Find your card
 
 Click your card to open its config, or a profile to open that profile. Pick the profile for your screen resolution; the card file adds a few card-specific tweaks on top. **Why?** explains every value. `install.bat` picks all of this for you.

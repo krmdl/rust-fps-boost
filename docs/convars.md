@@ -30,7 +30,7 @@ Impact numbers are **expected**, not measured on our target hardware, until a be
 | `graphics.hlod` | True | True | True | True | CPU | · | Hierarchical LOD merges distant objects into combined meshes, which means **fewer draw calls**. Facepunch added an HLOD rendering system for monuments and later fixed HLOD convar switching. A pure win on CPU-bound systems, so it stays on everywhere. | [F2](sources.md#f2), [F3](sources.md#f3), [G1](sources.md#g1) |
 | `mesh.quality` | 0 | 50 | 100 | 200 | CPU+GPU | · | LOD quality for general meshes (deployables, props). Facepunch's own optimisation work included making small objects "LOD and cull quicker". | [F1](sources.md#f1), reasoning (cost) |
 | `tree.quality` | 0 | 50 | 100 | 200 | CPU+GPU | + | Tree LOD distance/quality. The maximum cost up to 5% in C2's test. Trees are the densest geometry in Rust, so on CPU-bound low-end PCs the effect is expected to be larger. Simpler tree silhouettes also make players easier to see. | [C2](sources.md#c2), [F1](sources.md#f1) |
-| `tree.meshes` | 0 | 25 | 50 | 100 | CPU+GPU | + | Share of trees drawn as full meshes rather than billboards ("Max Tree Meshes" in the menu). C2 found a "nominal" impact on high-end hardware. Kept low on low-end profiles because billboards are cheaper to draw; unmeasured there. | [C2](sources.md#c2), reasoning |
+| `tree.meshes` | 10 | 25 | 50 | 100 | CPU+GPU | · | Share of trees drawn as full meshes rather than billboards ("Max Tree Meshes" in the menu). The slider's minimum is 10 [[C4]](sources.md#c4), which is also what the most-rated Steam guides use. C2 found a "nominal" impact on high-end hardware. Kept low on low-end profiles because billboards are cheaper to draw; unmeasured there. | [C2](sources.md#c2), [C4](sources.md#c4), reasoning |
 | `terrain.quality` | 0 | 25 | 50 | 100 | GPU | · | Terrain mesh/shading detail. Mostly a GPU fill-rate cost, expected to matter most on iGPUs. | reasoning |
 | `graphicssettings.enablelodcrossfade` | False | False | True | True | GPU+CPU | · | During a crossfade, Unity renders **both** LOD levels and blends them, so that object briefly costs double. Off means instant pop-in but a cheaper frame. | [U4](sources.md#u4) |
 
@@ -38,11 +38,13 @@ Impact numbers are **expected**, not measured on our target hardware, until a be
 
 In Unity, shadow casters are drawn again into each shadow map/cascade (CPU draw calls [[U6]](sources.md#u6)), and the number of shadow casters has "a significant impact" on shadow cost [[U7]](sources.md#u7).
 
+In March 2026 Facepunch merged the shadow settings into a single **Shadow Quality preset** in the Graphics menu [[F8]](sources.md#f8). How `graphics.shadowmode` and `graphicssettings.shadowqualitypreset` map to that preset is unverified (⚠ below).
+
 | Convar | UL | L | B | Q | Cost | Vis. | Why | Src |
 |---|---|---|---|---|---|---|---|---|
 | `graphics.shadowmode` ⚠ | 1 | 1 | 2 | 4 | CPU+GPU | − if off | Main shadow setting. We use a low level rather than trying to disable shadows: players' shadows give away their position, and shadows give depth cues when building and aiming. The reference dump has 4. | [U6](sources.md#u6), [U7](sources.md#u7) |
 | `graphicssettings.shadowqualitypreset` ⚠ | 0 | 1 | 2 | 3 | GPU | · | Matches the menu's "Shadow Quality" (0–3): **0 renders hard shadows** (shadows stay on, just with sharp edges), 1–3 are soft-shadow quality, and the top value was 5–6% slower than the rest in C2's test. 0 keeps shadows visible at the lowest cost. | [C2](sources.md#c2) |
-| `graphics.shadowlights` | 0 | 0 | 1 | 3 | CPU+GPU | · | Shadows cast by point lights (lanterns, ceiling lights, furnaces). Unity renders a point-light shadow in **six directions**, roughly six spot-light shadows' worth of draw calls. C2 measured 2–4% at night; the cost can be larger in light-heavy bases. Little gameplay value. | [U5](sources.md#u5), [C2](sources.md#c2) |
+| `graphics.shadowlights` | 1 | 1 | 1 | 3 | CPU+GPU | · | Shadows cast by point lights (lanterns, ceiling lights, furnaces). Unity renders a point-light shadow in **six directions**, roughly six spot-light shadows' worth of draw calls. C2 measured 2–4% at night; the cost can be larger in light-heavy bases. Little gameplay value, so low profiles use the minimum. Facepunch raised the minimum to **1** in March 2026 "to prevent light-leaking issues", so 0 is no longer possible. | [F8](sources.md#f8), [U5](sources.md#u5), [C2](sources.md#c2) |
 | `graphics.aggressiveshadowlod` | True | True | True | False | CPU | · | Uses lower LODs for shadow casters, so fewer triangles go to the shadow pass. A real, maintained Rust convar (Facepunch fixed a shadow bug "with 'graphics.aggressiveShadowLod' enabled"). | [F6](sources.md#f6) (convar), [U7](sources.md#u7), reasoning (cost) |
 | `graphics.aggressiveshadowlodwearable` | True | True | True | False | CPU | · | Same, for clothing/wearables on players. Expected to help in populated areas (Outpost, big fights). | reasoning |
 | `graphics.impostorshadows` | False | False | False | True | GPU | · | Shadows for distant tree impostors. Atmosphere only, no gameplay value. | [U7](sources.md#u7) |
@@ -54,14 +56,14 @@ Post-processing is full-screen shading, so its cost scales with resolution. It's
 
 | Convar | UL | L | B | Q | Cost | Vis. | Why | Src |
 |---|---|---|---|---|---|---|---|---|
-| `effects.antialiasing` ⚠ | 0 | 1 | 2 | 2 | GPU | · | Off on ultra-low. The current build offers TSSAA (improved in 2025) and DLAA among its AA options [[F7]](sources.md#f7). C2 found TSSAA over 10% faster than DLAA. The exact number-to-method mapping of this convar is unverified, so the low/balanced values are best guesses. | [F7](sources.md#f7), [C2](sources.md#c2), reasoning |
+| `effects.antialiasing` | 0 | 1 | 2 | 2 | GPU | · | 0 = Off, 1 = FXAA, 2 = SMAA, 3 = TSSAA according to a 2024 menu-to-convar mapping [[C4]](sources.md#c4). So: off on ultra-low, cheap FXAA on low, SMAA on balanced/quality. We skip TSSAA: players report it blurs in motion [[C6]](sources.md#c6), although Facepunch improved it in 2025 [[F7]](sources.md#f7). DLAA (RTX only) looks best but was over 10% slower than TSSAA [[C2]](sources.md#c2). | [C4](sources.md#c4), [F7](sources.md#f7), [C2](sources.md#c2), [C6](sources.md#c6) |
 | `effects.ao` | False | False | True | True | GPU | · | Ambient occlusion, a full-screen effect. Cost up to 6% in C2's test. | [C2](sources.md#c2) |
 | `effects.bloom` | False | False | False | True | GPU | − | Glow around bright areas. It hurts visibility (players silhouetted against the sky/sun get washed out), so we only enable it on quality. | reasoning |
 | `effects.shafts` | False | False | False | True | GPU | − | Sun shafts (god rays). Cost 3–4% in C2's test, and can wash out the view when looking toward the sun. | [C2](sources.md#c2) |
 | `effects.lensdirt` | False | False | False | False | GPU | − | Dirt overlay on bright light. Never helps, so it's off everywhere. | reasoning |
 | `effects.motionblur` | False | False | False | False | GPU | − | Blurs exactly what you are trying to track. Off everywhere. | reasoning |
 | `effects.vignet` | False | False | False | False | GPU | − | Darkens screen edges, reducing peripheral visibility. Off everywhere. | reasoning |
-| `effects.sharpen` | False | False | False | False | GPU | · | Optional. Off by default because an extra pass hurts the low profiles. If you use DLSS or a low render scale you may want it (see GPU overlays). | reasoning |
+| `effects.sharpen` | False | False | True | True | GPU | + | A cheap sharpening pass. The most-rated 2025–26 Steam guides and several editorial guides keep it **on** for a clearer image [[C6]](sources.md#c6); one guide puts its cost at 2–3 FPS. On for balanced/quality, off on the low profiles where every pass counts (the `intel-igpu` overlay turns it on to offset its lower render scale). | [C6](sources.md#c6) |
 | `effects.hurtoverlay` | False | False | False | False | GPU | + | Red damage overlay that blocks your view while you are being shot. | reasoning |
 | `effects.otherplayerslightflares` | False | False | False | False | GPU | + | Lens flares from other players' flashlights/lasers. Turning them off removes blinding glare. Note it's a mild **visibility advantage**: listed under principle 3. | reasoning |
 | `graphics.dof` | False | False | False | False | GPU | − | Depth of field blurs the background. Off everywhere. | reasoning |
@@ -96,7 +98,7 @@ Post-processing is full-screen shading, so its cost scales with resolution. It's
 
 | Convar | UL | L | B | Q | Cost | Vis. | Why | Src |
 |---|---|---|---|---|---|---|---|---|
-| `graphicssettings.globaltexturemipmaplimit` | 2 | 1 | 0 | 0 | VRAM | · | Unity documents it exactly: 0 = full, 1 = half, 2 = quarter-size textures (2D textures only). Running out of VRAM causes **stutter**, not just lower FPS. ≤2 GB cards: 2, 4 GB cards: 1, 6 GB+: 0. The [card overlays](../gpu/cards/) set this from your card's actual VRAM. | [U1](sources.md#u1) |
+| `graphicssettings.globaltexturemipmaplimit` | 2 | 1 | 0 | 0 | VRAM | · | Unity documents it exactly: 0 = full, 1 = half, 2 = quarter-size textures (2D textures only). Running out of VRAM causes **stutter**, not just lower FPS. ≤2 GB cards: 2, 3–6 GB cards: 1, 8 GB+: 0. Player captures show Rust filling most of whatever VRAM it finds (5–5.8 GB on 6 GB cards), so 6 GB cards get half resolution. The [card overlays](../gpu/cards/) set this from your card's actual VRAM. The game now also has an "eighth resolution" level ([candidate](candidates.md)). | [U1](sources.md#u1), [C5](sources.md#c5) |
 | `graphics.af` | 2 | 8 | 16 | 16 | GPU (bandwidth) | · | Anisotropic filtering keeps ground textures sharp at angles. Almost free on discrete GPUs, but it costs memory bandwidth on iGPUs (shared RAM), so ultra-low goes down to 2. | reasoning |
 
 ## Latency
@@ -136,6 +138,8 @@ These are personal preferences or have no performance effect. The installer leav
 
 What we **don't** have is an official description of `gc.buffer`. A 2020 community guide says a larger buffer makes GC run less often, giving fewer periodic hitches at the cost of more RAM, and gives a default of 256 [[C1]](sources.md#c1). Our reference dump contains `1965`, which doesn't match that default and *suggests* (our inference) that newer builds size it automatically. Because of that we don't override it by default.
 
+It's now also a slider in the game's **Experimental** tab (range 64–4082 according to a 2024 mapping [[C4]](sources.md#c4)), and it's very popular in Steam guides, but nobody has published measurements [[C6]](sources.md#c6).
+
 If you get regular hitches every few seconds, the installer can set it manually. These values are community conventions, not measured:
 
 | System RAM | Suggested `gc.buffer` |
@@ -158,9 +162,9 @@ Values marked ⚠ above need a check in the current build. The most reliable met
 
 | Convar | Open question |
 |---|---|
-| `graphics.shadowmode` | Meaning of each level. Does 0 disable shadows entirely? |
-| `graphicssettings.shadowqualitypreset` | Confirm it is the menu's "Shadow Quality" (0 = hard shadows) |
-| `effects.antialiasing` | Number-to-method mapping (off / TSSAA / …?) |
+| `graphics.shadowmode` | Meaning of each level. Does 0 disable shadows entirely? How does it map to the new Shadow Quality preset [[F8]](sources.md#f8)? |
+| `graphicssettings.shadowqualitypreset` | Is it what the March 2026 Shadow Quality preset writes? |
+| `effects.antialiasing` | Confirm the 2024 mapping (0 Off / 1 FXAA / 2 SMAA / 3 TSSAA) [[C4]](sources.md#c4) still holds |
 | `graphics.volumetric_clouds` | Levels 1–4 are documented [[F5]](sources.md#f5). Is 0 off? |
 | `graphics.lodbias` | Lowest accepted value (0.25 or clamped to 0.5?) |
 | `grass.quality` / `grass.distance` | Minimum values the game clamps to |

@@ -21,7 +21,7 @@ A card overlay **only** contains settings that depend on the card itself. Everyt
 
 | Rule | Convar | Logic | Src |
 |---|---|---|---|
-| **R1: Textures by VRAM** | `graphicssettings.globaltexturemipmaplimit` | ≤2 GB → `2` (quarter), 3–4 GB → `1` (half), 6 GB+ → `0` (full). The card knows its VRAM better than a generic profile, so this **overrides** the profile value. On a 12 GB card running `low`, you get full-res textures, because texture size costs VRAM, not much FPS, as long as it fits. | [U1](../../docs/sources.md#u1), reasoning (FPS cost) |
+| **R1: Textures by VRAM** | `graphicssettings.globaltexturemipmaplimit` | ≤2 GB → `2` (quarter), 3–6 GB → `1` (half), 8 GB+ → `0` (full). The card knows its VRAM better than a generic profile, so this **overrides** the profile value. On a 12 GB card running `low`, you get full-res textures, because texture size costs VRAM, not much FPS, as long as it fits. 6 GB cards get half resolution because community measurements show Rust filling 5–5.8 GB on 6 GB cards and ~11 GB on 12 GB cards, so full-res textures on 6 GB risk overflowing into stutter. | [U1](../../docs/sources.md#u1), [C5](../../docs/sources.md#c5) |
 | **R2: Latency by vendor** | `graphics.reflexmode` | NVIDIA (GTX 900 series and newer): `1`. AMD: `0` (unsupported; use Radeon Anti-Lag in the driver). | [N1](../../docs/sources.md#n1), [N3](../../docs/sources.md#n3) |
 | **R3: DLSS off where impossible** | `graphics.dlss`, `graphics.dlaa` | Cards without tensor cores (all GTX, all AMD): `dlss -1` (the "off" value in the reference dump) and `dlaa False`. RTX cards: **not set**. The convar's value mapping isn't verified, so pick DLSS in the menu (guidance on each card page). | [N2](../../docs/sources.md#n2), [reference dump](../../reference/client.dump.cfg) |
 | **R4: Anisotropic filtering** | `graphics.af` | `16` on every discrete card. AF costs memory bandwidth, which discrete cards have plenty of. The profiles' lower AF values exist for integrated GPUs. | reasoning |
@@ -31,6 +31,13 @@ A card overlay **only** contains settings that depend on the card itself. Everyt
 
 - **Low-end cards (GTX 1050 Ti → GTX 1660 Super, RX 580):** Rust is often **GPU- or VRAM-bound** here, so the right texture level (R1) and profile choice make a real difference. Overflowing VRAM causes stutter, not just lower FPS.
 - **Mid/high cards (RTX 4060 and up, RX 9070 XT):** Rust is frequently **CPU-bound** on these cards [[F1]](../../docs/sources.md#f1), so card settings change FPS less. The benefit is mostly latency (Reflex) and spending spare GPU power on visuals at no FPS cost.
+
+Player reports back this up [[C5]](../../docs/sources.md#c5) [[C6]](../../docs/sources.md#c6):
+- RTX 4060 + i5-12400F: 60–70 FPS at every setting from ultra to lowest, with the GPU at 30–35%.
+- RTX 3060, RTX 5060 Ti and RTX 5070 sessions show GPU usage of 38–40% while the CPU peaks near 100%.
+- Upgrading from a GTX 1650 to an RTX 2060 Super gave no FPS gain on an R5 5600.
+
+So if your GPU usage stays well below 90% (Task Manager → Performance → GPU), lower the CPU-side settings (draw distance, trees, LOD) or upgrade the CPU; a faster graphics card won't help. Each card page lists the reports for that card.
 
 ## All cards
 

@@ -42,6 +42,12 @@ Rules R1–R5 are explained in [the card overlay README](README.md#what-a-card-o
 - Often paired with older 4-core CPUs. If GPU usage stays well below 95% (Task Manager → Performance → GPU), you're CPU-bound: drop to `ultra-low` for its shorter LOD/tree distances rather than lowering resolution.
 - At 1440p, try a lower render scale: press F1 in Rust, type `graphics.renderscale 0.75`, press Enter.
 
+## Community reports
+
+What players report on this card (Steam Community, howmanyfps). These are anecdotes: settings and location are often unknown, and we haven't reproduced them [[C5]](../../docs/sources.md#c5) [[C6]](../../docs/sources.md#c6).
+
+- i7-2600K, 16 GB DDR3: ~100 FPS with a low-settings guide on a 200-pop server (May 2026) [[1]](https://steamcommunity.com/sharedfiles/filedetails/?id=3727010750)
+
 ## Benchmark status
 
-No reports yet.
+No measured reports yet.

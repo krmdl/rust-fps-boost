@@ -49,8 +49,9 @@ CARDS = [
          notes=["Not just less VRAM: the 3 GB model also has fewer CUDA cores (1152 vs 1280) than the 6 GB model.",
                 "3 GB is the main limit. Keep half-resolution textures (R1) even on `balanced`."]),
     Card("gtx-1060-6gb", "NVIDIA GeForce GTX 1060 6GB", "nvidia", "Pascal", 6, 192, 192, False, "low", "ultra-low",
-         notes=["6 GB is enough for full-resolution textures at 1080p (R1). If you see stutter when turning quickly "
-                "in towns, try `graphicssettings.globaltexturemipmaplimit 1` and compare.",
+         notes=["Half-resolution textures (R1): Rust tends to fill the whole 6 GB, and full-res textures risk stutter. "
+                "If you have VRAM to spare in your own testing, try `graphicssettings.globaltexturemipmaplimit 0` and compare.",
+                "Often paired with older 4-core CPUs, which then become the limit.",
                 "Pascal has no tensor cores: no DLSS."]),
     Card("gtx-1650", "NVIDIA GeForce GTX 1650", "nvidia", "Turing (TU117)", 4, 128, 128, False, "low", "ultra-low",
          survey=2.19,
@@ -58,9 +59,12 @@ CARDS = [
                 "Turing, but **no tensor cores**: DLSS is not available on GTX 16-series cards."]),
     Card("gtx-1660-super", "NVIDIA GeForce GTX 1660 Super", "nvidia", "Turing (TU116)", 6, 192, 336, False, "low", "low",
          notes=["Strong for its tier thanks to GDDR6 bandwidth. If `low` holds well above your target FPS, try `balanced` at 1080p.",
+                "Half-resolution textures (R1): 6 GB fills up quickly in Rust.",
+                "1440p on this card is only lightly backed by community reports; if `low` struggles, drop to `ultra-low`.",
                 "No tensor cores: no DLSS."]),
     Card("rtx-2060", "NVIDIA GeForce RTX 2060", "nvidia", "Turing (TU106)", 6, 192, 336, True, "balanced", "low",
-         notes=["A 12 GB variant also exists. R1 gives full-res textures for both.",
+         notes=["Half-resolution textures for the 6 GB card (R1). A 12 GB variant also exists; on that one, "
+                "`graphicssettings.globaltexturemipmaplimit 0` (full res) is safe.",
                 "First-generation RTX: DLSS works. At 1440p, DLSS *Quality* can make `balanced` viable."]),
     Card("rtx-3050", "NVIDIA GeForce RTX 3050", "nvidia", "Ampere (GA106/GA107)", 8, 128, 224, True, "low", "low",
          survey=2.90,
@@ -121,12 +125,53 @@ def validate():
         for p in (c.p1080, c.p1440):
             if p not in PROFILES:
                 errors.append(f"{c.slug}: unknown profile {p!r}")
+    errors += [f"REPORTS: unknown card {s!r}" for s in REPORTS if s not in seen]
     if errors:
         sys.exit("\n".join(errors))
 
 
+ST = "https://steamcommunity.com/app/252490/discussions/0/{}/"
+HMF = "https://howmanyfps.com/benchmarks/rust/{}"
+
+# Community FPS reports (source tags C5/C6 in docs/sources.md). Anecdotes, not benchmarks:
+# settings and location are often unknown, and we haven't reproduced them.
+REPORTS = {
+    "gtx-1050-ti": [("i7-2600K, 16 GB DDR3: ~100 FPS with a low-settings guide on a 200-pop server (May 2026)",
+                     ["https://steamcommunity.com/sharedfiles/filedetails/?id=3727010750"])],
+    "gtx-1060-6gb": [("i5-3470: 30–50 FPS; replies blame the 4-core CPU (May 2025)", [ST.format("598527098280275998")])],
+    "gtx-1650": [("i5-10400F ~60 FPS, 12400F ~70 FPS, R5 5600G 110 FPS dropping to ~50 when holding a gun; "
+                  "settings mostly unspecified (2025)",
+                  [ST.format("597396599971265666"), ST.format("599641286096515740"), ST.format("599644029578166175")]),
+                 ("An upgrade from GTX 1650 to RTX 2060 Super (with R5 5600) gave no FPS gain: CPU-bound (2025)",
+                  [ST.format("601905151053147720")])],
+    "gtx-1660-super": [("R5 5600X: 80–100 FPS (Apr 2026)", [ST.format("806849643178662140")]),
+                       ("R7 3700X, low settings, eighth-res textures: 66 avg / 21 1% low, GPU 65% (Apr 2026)",
+                        [HMF.format("69d83a7c7e6e3473dfe2866d")]),
+                       ("1440p with unspecified settings: 25–45 FPS (Jun 2025)", [ST.format("597404578618541272")])],
+    "rtx-2060": [("2060 Super + R5 5600: 50–60 FPS on both high and low (CPU-bound); 90–120 after fixing Windows "
+                  "pagefile issues (May 2025)", [ST.format("601905151053147720")])],
+    "rtx-3050": [("Desktop, R5 3600: 60–80 FPS before a Feb 2026 update caused a regression", [ST.format("762932162500754881")]),
+                 ("Laptop versions: 30–50 FPS on medium (2026)", [ST.format("590684983954421177"), ST.format("562541966849529410")])],
+    "rtx-3060": [("R5 3600, 2560×1600, low settings: 34 avg / 18 1% low with GPU at 40% and CPU peaking at 97% "
+                  "(CPU-bound); 11.45 of 12 GB VRAM used (Apr 2026)", [HMF.format("69d1041bdc4a582a09438ba2")])],
+    "rtx-4060": [("i5-12400F: 60–70 FPS at any setting from ultra to lowest, GPU 30–35% (Aug 2025)",
+                  [ST.format("597408771468220614")]),
+                 ("R7 5700: 84 avg / 62 1% low, GPU 59% (Aug 2026); i7-8700K at max settings: 45 / 28 with GPU 96% "
+                  "(the one GPU-bound case, Apr 2026)",
+                  [HMF.format("6a7c119d45441b58f6884c48"), HMF.format("69cf05ee4f0ac0dc6c8a1bcd")])],
+    "rtx-5060": [("R5 5600, 32 GB: up to 50 FPS, \"same as my old PC\" (Oct 2026)", [ST.format("574930130477097445")])],
+    "rtx-5060-ti": [("R7 5700, 2560×1600: 87 avg / 71 1% low with GPU at 39% (Aug 2026)", [HMF.format("6a7df7e5a93c07bb4def8f6a")]),
+                    ("i5-14400F: ~60 FPS, and lowering settings didn't help (Sep 2025)", [ST.format("603042108906095634")])],
+    "rtx-5070": [("i5-14600KF, near-max settings: 88 avg / 70 1% low, GPU 64%; R7 5800X: 92 / 78, GPU 38% (Jun 2026)",
+                  [HMF.format("6a2017a89355e7afab3d1402"), HMF.format("6a3a98cbd97a63fab3e7e003")])],
+    "rx-580-8gb": [("Xeon CPU: 60–80 FPS (Apr 2026)", [ST.format("806849643178662140")])],
+    "rx-9070-xt": [("R9 5950X, 1440p: 124 avg / 91 1% low on low settings (GPU 47%), 108 / 73 on high (GPU 75%) (Jul 2026)",
+                    [HMF.format("6a47791c976c3d20a00f0c83"), HMF.format("6a4773ce331d263f06cf5db9")])],
+}
+
+
 def mip_for(vram):
-    return 2 if vram <= 2 else 1 if vram <= 4 else 0
+    return 2 if vram <= 2 else 1 if vram <= 6 else 0
 
 
 def overlay(c):
@@ -190,8 +235,17 @@ def page(c):
         "Rules R1–R5 are explained in [the card overlay README](README.md#what-a-card-overlay-changes-and-the-rules-behind-it).",
         "", "## Card-specific notes", "",
         *[f"- {n}" for n in c.notes],
-        "", "## Benchmark status", "", "No reports yet.", "",
+        "", "## Community reports", "",
     ]
+    reports = REPORTS.get(c.slug, [])
+    if reports:
+        md += ["What players report on this card (Steam Community, howmanyfps). These are anecdotes: settings and "
+               f"location are often unknown, and we haven't reproduced them [[C5]]({SRC}#c5) [[C6]]({SRC}#c6).", ""]
+        md += [f"- {text} " + " ".join(f"[[{i}]]({url})" for i, url in enumerate(urls, 1)) for text, urls in reports]
+    else:
+        md += ["No 2025–2026 player reports with numbers found yet. A [benchmark report](../../benchmarks/README.md) "
+               "would be the first."]
+    md += ["", "## Benchmark status", "", "No measured reports yet.", ""]
     return "\n".join(md)
 
 

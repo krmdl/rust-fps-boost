@@ -13,5 +13,9 @@ These appear in the game's own config dump and *might* improve performance, but 
 | `mesh.reducebonecountonlowlod` | True | Already on (good). Confirm it stays on. | – |
 | `system.auto_cpu_affinity` | False | Lets the game pin threads to cores. Could help on hybrid CPUs (Intel 12th gen+ P/E cores). | Could hurt on some CPUs. Hardware-dependent, so it may become a CPU overlay. |
 | `graphics.collapserenderers` | True | Unclear purpose. Possibly batches renderers. Check whether False changes anything. | – |
+| `rrp.enabled` | False (in our dump) | Most likely the toggle for the new **Rust Render Pipeline**. Facepunch expects "slightly better performance in most areas" and plans to make it the default [[F10]](sources.md#f10). The convar name is our inference (Facepunch didn't name it); try the Experimental tab toggle in the meantime. **Top candidate.** | Experimental for its first month: "in case there are any issues". |
+| `culling.toggle` | True | Occlusion Culling (Experimental tab) [[C4]](sources.md#c4). The most-rated Steam guides turn it off, and Facepunch noted in 2018 that its CPU cost "may overshadow the benefits" [[F1]](sources.md#f1). Off might help CPU-bound PCs. | Could cost GPU time instead; hardware-dependent, needs an A/B test. |
+| `graphicssettings.globaltexturemipmaplimit 3` | – | Player captures show a new "eighth resolution" texture level [[C5]](sources.md#c5) (Unity: 3 = eighth size [[U1]](sources.md#u1)). Could help ≤2 GB cards and iGPUs. | Very blurry textures. |
+| `graphics.shadowdistance` | not in dump | Some guides recommend it (50–1000), but it doesn't appear in our reference dump and players report it no longer exists [[C6]](sources.md#c6). Not usable unless it reappears. | – |
 
 Found something? Open a PR moving the row to [convars.md](convars.md) with a benchmark report attached.

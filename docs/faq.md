@@ -26,6 +26,12 @@ powershell -ExecutionPolicy Bypass -File tools\apply.ps1 -RustPath "D:\SteamLibr
 
 **Laptop with two GPUs?** The installer picks the dedicated card. Also make sure Windows runs Rust on it: **Settings → System → Display → Graphics**, add `RustClient.exe`, choose **High performance**.
 
+**My FPS tanks when I turn the camera.** Check your mouse polling rate. Since the Unity 6 update, Facepunch says "high polling rate mice (1000Hz+) are now causing significant CPU overhead issues and frame drops" [[F9]](sources.md#f9). Set it to 1000 Hz or lower in your mouse software; several players report the drops disappear at 500–1000 Hz [[C6]](sources.md#c6).
+
+**What is the Rust Render Pipeline?** Rust's new rendering system (October 2026). Facepunch expects "slightly better performance in most areas". While it's experimental, you can switch it on under Options → Experimental [[F10]](sources.md#f10). It will become the default once Facepunch is confident it has no serious issues.
+
+**My FPS dropped after a Rust update.** That happens: players reported big regressions after some 2026 patches [[C6]](sources.md#c6). Re-run the installer (a big update can reset settings), then check the mouse polling rate and the Render Pipeline toggle above.
+
 **How do I know if I'm CPU- or GPU-bound?** Open Task Manager → **Performance → GPU** while playing (or the NVIDIA Alt+R / AMD Ctrl+Shift+O overlay). GPU usage near 95–100% means GPU-bound: graphics settings help a lot. Well below 90% means CPU-bound: lower draw distance, trees and LOD settings help more than resolution.
 
 ## About the project

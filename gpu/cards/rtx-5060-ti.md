@@ -44,6 +44,13 @@ Rules R1–R5 are explained in [the card overlay README](README.md#what-a-card-o
 
 - Sold with 8 GB and 16 GB. Same overlay for both: full-res textures either way (R1).
 
+## Community reports
+
+What players report on this card (Steam Community, howmanyfps). These are anecdotes: settings and location are often unknown, and we haven't reproduced them [[C5]](../../docs/sources.md#c5) [[C6]](../../docs/sources.md#c6).
+
+- R7 5700, 2560×1600: 87 avg / 71 1% low with GPU at 39% (Aug 2026) [[1]](https://howmanyfps.com/benchmarks/rust/6a7df7e5a93c07bb4def8f6a)
+- i5-14400F: ~60 FPS, and lowering settings didn't help (Sep 2025) [[1]](https://steamcommunity.com/app/252490/discussions/0/603042108906095634/)
+
 ## Benchmark status
 
-No reports yet.
+No measured reports yet.
