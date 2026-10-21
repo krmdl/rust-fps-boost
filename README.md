@@ -1,10 +1,11 @@
 <div align="center">
 
-# Rust FPS Configs
+# Rust FPS Boost
 
 **More FPS in Rust on low-end PCs, and every setting tells you why.**
 
-Documented `client.cfg` profiles and per-GPU tuning for **Rust (the Facepunch game)**.<br>
+The best Rust settings for your graphics card, as documented `client.cfg` configs for **Rust (the Facepunch game)**.<br>
+4 profiles from potato PC to RTX, 16 per-GPU configs, a one-click installer with backup.<br>
 No placebo tweaks, no launch-option myths, no copy-pasted folklore.
 
 ![Rust build](https://img.shields.io/badge/tested%20on-Rust%20Oct%202026-cd412b)

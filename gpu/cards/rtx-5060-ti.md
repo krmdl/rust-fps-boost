@@ -1,4 +1,4 @@
-# NVIDIA GeForce RTX 5060 Ti
+# Best Rust settings for the NVIDIA GeForce RTX 5060 Ti
 
 4.06% of Steam users (September 2026 Steam Hardware Survey [[H1]](../../docs/sources.md#h1)).
 

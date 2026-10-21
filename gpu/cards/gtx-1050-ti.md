@@ -1,4 +1,4 @@
-# NVIDIA GeForce GTX 1050 Ti
+# Best Rust settings for the NVIDIA GeForce GTX 1050 Ti
 
 **Config file:** [`gtx-1050-ti.cfg`](gtx-1050-ti.cfg)
 

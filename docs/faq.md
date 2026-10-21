@@ -1,4 +1,4 @@
-# FAQ
+# Rust FPS Boost: FAQ and glossary
 
 ## Installing
 

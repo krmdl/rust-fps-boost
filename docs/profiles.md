@@ -1,4 +1,4 @@
-# Profile design
+# Rust FPS Boost profiles: ultra-low, low, balanced, quality
 
 All four profiles touch the **same set of convars**, so you can compare them line by line:
 

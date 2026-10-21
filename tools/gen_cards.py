@@ -152,7 +152,7 @@ def page(c):
     rows.append(("`graphics.af`", "16", "R4: anisotropic filtering is cheap on a discrete card's memory bandwidth.",
                  "reasoning"))
 
-    md = [f"# {c.name}", ""]
+    md = [f"# Best Rust settings for the {c.name}", ""]
     if c.survey:
         md += [f"{c.survey:.2f}% of Steam users ({SURVEY_MONTH} Steam Hardware Survey [[H1]]({SRC}#h1)).", ""]
     md += [

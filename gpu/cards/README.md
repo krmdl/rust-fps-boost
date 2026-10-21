@@ -1,4 +1,4 @@
-# Card overlays
+# Rust config per graphics card
 
 One overlay per popular graphics card. Find your card, then apply it on top of the profile recommended on its page:
 

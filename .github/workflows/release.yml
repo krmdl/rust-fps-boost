@@ -13,12 +13,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build release zip
         run: |
-          NAME=rust-fps-configs-${GITHUB_REF_NAME}
+          NAME=rust-fps-boost-${GITHUB_REF_NAME}
           mkdir -p "$NAME/tools"
           cp -r install.bat profiles gpu README.md LICENSE "$NAME/"
           cp tools/apply.ps1 "$NAME/tools/"
           zip -r "$NAME.zip" "$NAME"
       - uses: softprops/action-gh-release@v2
         with:
-          files: rust-fps-configs-*.zip
+          files: rust-fps-boost-*.zip
           generate_release_notes: true

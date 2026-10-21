@@ -1,4 +1,4 @@
-# Install
+# Install Rust FPS Boost
 
 ## Where the config lives
 

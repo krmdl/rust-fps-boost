@@ -1,4 +1,4 @@
-# NVIDIA GeForce GTX 1660 Super
+# Best Rust settings for the NVIDIA GeForce GTX 1660 Super
 
 **Config file:** [`gtx-1660-super.cfg`](gtx-1660-super.cfg)
 

@@ -1,4 +1,4 @@
-# Convar rationale
+# Rust graphics settings explained: every convar, why, and its source
 
 This page lists every convar a profile touches, the value for each profile, **why** we chose it, and **what backs the claim**.
 

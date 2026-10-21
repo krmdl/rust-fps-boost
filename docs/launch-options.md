@@ -1,4 +1,4 @@
-# Steam launch options
+# Rust launch options (Steam): what works and what is a myth
 
 Set them in Steam: right-click Rust → **Properties → General → Launch Options**.
 

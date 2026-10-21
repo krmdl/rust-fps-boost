@@ -1,6 +1,6 @@
 @echo off
 setlocal
-title Rust Optimized Configs
+title Rust FPS Boost
 cd /d "%~dp0"
 
 if not exist "%~dp0tools\apply.ps1" (
@@ -10,8 +10,8 @@ if not exist "%~dp0tools\apply.ps1" (
 )
 
 echo.
-echo   Rust Optimized Configs
-echo   ----------------------
+echo   Rust FPS Boost
+echo   --------------
 echo   1. Install (detects your graphics card and suggests settings)
 echo   2. Preview only (shows what would change, writes nothing)
 echo   3. Undo last install
