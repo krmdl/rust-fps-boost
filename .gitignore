@@ -1,0 +1,4 @@
+# Local working copy of the game's config (the canonical copy lives in reference/)
+/client.cfg
+*.bak
+backups/
